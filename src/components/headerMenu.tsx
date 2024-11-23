@@ -1,39 +1,17 @@
 "use client"
 
+import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Button } from "./ui/button";
-import { AlignJustify, Loader2, LogOut } from "lucide-react";
+import { AlignJustify, Loader2, LogOut, Plus, User, Home } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-
-
-import {
-    Cloud,
-    CreditCard,
-    Github,
-    Keyboard,
-    LifeBuoy,
-    Mail,
-    MessageSquare,
-    Plus,
-    PlusCircle,
-    Settings,
-    User,
-    UserPlus,
-    Users,
-} from "lucide-react"
-
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuGroup,
     DropdownMenuItem,
     DropdownMenuLabel,
-    DropdownMenuPortal,
     DropdownMenuSeparator,
-    DropdownMenuShortcut,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
@@ -87,7 +65,11 @@ export function HeaderMenu(){
                         </DropdownMenuGroup>
                 
                         <DropdownMenuSeparator />
-                
+
+                        <DropdownMenuItem>
+                            <Home />
+                            <Link href={'/'} >Home</Link>
+                        </DropdownMenuItem>
                         <DropdownMenuItem onClick={handleLogout}>
                             <LogOut />
                             <span>Sair</span>
