@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import prisma from "@/services/database";
 import Image from "next/image";
 
 const books = [
@@ -12,11 +13,14 @@ const books = [
 ]
 
 
-export default function Home() {
+export default async function Home() {
+
+  const books = await prisma.books.findMany()
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background">
       <div className="w-full h-72 bg-[url('../../public/image.png')] bg-cover bg-center relative 2xl:hidden bg-fixed">
-        <div className="text-slate-100 font-semibold italic absolute bottom-5 left-6">
+        <div className="text-slate-100 font-semibold italic absolute bottom-5 left-9">
           <h1 className="text-7xl">LitLine</h1>
           <h3 className="text-xl">Reserva de livros</h3>
         </div>
@@ -30,7 +34,7 @@ export default function Home() {
       </div>
 
 
-      <main className="container mx-auto p-4">
+      <main className="container mx-auto py-4 px-2">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {books.map((book, index) => (
             <Card key={index} className="flex overflow-hidden">
@@ -40,12 +44,13 @@ export default function Home() {
                   <CardDescription>{book.author}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p>Um livro fascinante que cativa os leitores.</p>
+                  <p className="text-sm  truncate max-w-52">{book.description}</p>
                 </CardContent>
                 <CardFooter>
                   <Button>Ler mais</Button>
                 </CardFooter>
               </div>
+
               <div className="w-1/3 relative">
                 <Image
                   src={book.image}

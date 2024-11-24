@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Button } from "./ui/button";
-import { AlignJustify, Loader2, LogOut, Plus, User, Home } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { AlignJustify, Loader2, LogOut, Plus, User, Home, Github } from "lucide-react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,9 +13,10 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import Image from "next/image";
 
 export function HeaderMenu(){
-    const {data, status} = useSession();
+    const {status} = useSession();
 
     async function handleLogin() {
         await signIn("github")
@@ -29,17 +29,9 @@ export function HeaderMenu(){
     return (
         <header className={`py-4 px-2 2xl:px-0 flex container mx-auto ${status === "authenticated" ? "justify-between" : "justify-end" }`}>
             {status === "authenticated" && (
-                <div className="flex items-center justify-center gap-2">
-                    {data?.user?.image && (
-                        <Avatar>
-                            <AvatarImage src={data.user.image} alt="Foto de perfil" />
-                            <AvatarFallback>?</AvatarFallback>
-                        </Avatar>
-                    )}
-                    <h2 className="font-bold text-lg">
-                        {data?.user?.name}
-                    </h2>
-                </div>
+                <Image 
+                    src={"/Litline.png"} alt={""} width={128} height={30}
+                />
             )}
 
             {status === "authenticated" && (
@@ -80,7 +72,7 @@ export function HeaderMenu(){
 
             {status === "unauthenticated" && (
                 <Button onClick={handleLogin}>
-                    <b>Login</b>
+                    <p className="flex items-center gap-1.5 font-semibold"> Login com <Github strokeWidth={3}/></p>
                 </Button>
             )}
 

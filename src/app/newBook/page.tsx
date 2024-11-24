@@ -7,15 +7,22 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { api } from '@/services/axios'
+import { SubNavigation } from '@/components/subNavigation'
+import { useSession } from 'next-auth/react'
+import { redirect } from 'next/navigation'
 
 export default function NewBook() {
+    const { status } = useSession()
+    if (status !== "authenticated") {
+        return redirect('/')  
+    }
+
     const [book, setBook] = useState({
         title: '',
         author: '',
         description: '',
         imageUrl: ''
     })
-    const [inputFileData, setInputFileData] = useState(null);
 
     function handleFileName(e: any){
         const file = e.target.files[0];
@@ -42,8 +49,10 @@ export default function NewBook() {
     }
 
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-6">Cadastrar Novo Livro</h1>
+        <div className="container mx-auto px-2">
+            <SubNavigation local="Novo livro"/>
+
+            <h1 className="text-2xl font-bold mb-6 mt-6">Cadastrar Novo Livro</h1>
             <div className="grid md:grid-cols-2 gap-6">
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
@@ -71,7 +80,7 @@ export default function NewBook() {
                         <Textarea
                             id="description"
                             name="description"
-                            className='resize-none'
+                            className='resize-none h-28'
                             value={book.description}
                             onChange={handleInputChange}
                             required
