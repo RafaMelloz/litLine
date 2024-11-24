@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { api } from '@/services/axios'
 
 export default function NewBook() {
     const [book, setBook] = useState({
@@ -16,32 +17,28 @@ export default function NewBook() {
     })
     const [inputFileData, setInputFileData] = useState(null);
 
-    const handleFileName = (e: any) => {
+    function handleFileName(e: any){
         const file = e.target.files[0];
-
         if (file) {
-            // Cria um objeto Blob
             const blobUrl = URL.createObjectURL(file);
-
-            // Armazena o arquivo ou o link para uso
-            console.log("Blob URL:", blobUrl);
-
             // Aqui você pode, por exemplo, atualizar o estado com o blob URL
             setBook(prev => ({ ...prev, imageUrl: blobUrl }))
         }
-        setInputFileData(file);
+        setBook(prev => ({ ...prev, file }));
     };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    function handleInputChange (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
         const { name, value } = e.target
         setBook(prev => ({ ...prev, [name]: value }))
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    async function handleSubmit (e: React.FormEvent){
         e.preventDefault()
-        console.log('Book submitted:', book)
-        console.log('Book image:', inputFileData)
-
+        await api.post('/api/book', book ,{
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
     }
 
     return (
@@ -80,17 +77,6 @@ export default function NewBook() {
                             required
                         />
                     </div>
-                    {/* <div>
-                        <Label htmlFor="imageUrl">URL da Imagem <span className='text-red-600'>*</span></Label>
-                        <Input
-                            id="imageUrl"
-                            name="imageUrl"
-                            type="url"
-                            value={book.imageUrl}
-                            onChange={handleInputChange}
-                            placeholder="https://exemplo.com/imagem.jpg"
-                        />
-                    </div> */}
                     <div className="grid w-full max-w-sm items-center gap-1.5">
                         <Label htmlFor="imageUrl">Imagem <span className='text-red-600'>*</span></Label>
                         <Input
@@ -116,8 +102,7 @@ export default function NewBook() {
                             <p className="mt-6 text-clip break-words">{book.description || 'Descrição do livro aparecerá aqui.'}</p>
                         </div>
                         
-
-                        {inputFileData && (
+                        {book.imageUrl && (
                             <img
                                 src={book.imageUrl}
                                 alt={book.title}

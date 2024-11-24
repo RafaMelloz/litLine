@@ -60,7 +60,7 @@ export function HeaderMenu(){
                             
                             <DropdownMenuItem>
                                 <Plus />
-                                <span>Novo livro</span>
+                                <Link href={'/newBook'} >Novo Livro</Link>
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                 
