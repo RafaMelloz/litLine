@@ -34,7 +34,7 @@ export default async function Home() {
       </div>
 
 
-      <main className="container mx-auto py-4 px-2">
+      <main className="container mx-auto py-4 px-2 2xl:px-0">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {books.map((book, index) => (
             <Card key={index} className="flex overflow-hidden">

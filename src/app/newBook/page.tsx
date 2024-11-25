@@ -13,6 +13,7 @@ import { redirect } from 'next/navigation'
 
 export default function NewBook() {
     const { status } = useSession()
+
     if (status !== "authenticated") {
         return redirect('/')  
     }
@@ -39,13 +40,39 @@ export default function NewBook() {
         setBook(prev => ({ ...prev, [name]: value }))
     }
 
+    function clearForm(){
+        setBook({
+            title: '',
+            author: '',
+            description: '',
+            imageUrl: ''
+        })
+    }
+
     async function handleSubmit (e: React.FormEvent){
         e.preventDefault()
-        await api.post('/api/book', book ,{
-            headers: {
-                'Content-Type': 'multipart/form-data'
+
+        if (!book.title || !book.author || !book.description || !book.imageUrl) {
+            return alert('Preencha todos os campos obrigatórios.')
+        }
+
+        try {
+            const res = await api.post('/api/book', book, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            if (res.status === 201) {
+                alert('Livro cadastrado com sucesso!');
+                clearForm();
+            } else {
+                alert('Erro ao cadastrar livro. Tente novamente.');
             }
-        })
+            
+        } catch (error) {
+            alert('Erro ao cadastrar livro. Tente novamente.');
+        }
     }
 
     return (

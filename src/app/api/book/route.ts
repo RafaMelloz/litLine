@@ -29,15 +29,7 @@ export async function POST(req: Request){
     const fileStream = Buffer.from(fileBuffer);
     let urlImage = "";
 
-    console.log('title:', title);
-    console.log('author:', author);
-    console.log('description:', description);
-    console.log('image:', image);
-    console.log('Image', fileStream);
-
-
     try {
-
         if (image) {
             urlImage = await new Promise((resolve, reject) => {
                 cloudinary.v2.uploader.upload_stream({ resource_type: "auto", public_id: `book of ${title}` },
@@ -56,11 +48,12 @@ export async function POST(req: Request){
                 title,
                 author,
                 description,
-                image : urlImage as string 
+                image : urlImage as string ,
+                ownerId: session.user?.id
             }
         })
 
-        return NextResponse.json({ message: 'ok' })
+        return NextResponse.json({ message: 'ok' }, { status: 201 })
 
     } catch (error) {
         return NextResponse.json({ message: 'erro ao cadastrar' })

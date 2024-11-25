@@ -47,7 +47,7 @@ export function HeaderMenu(){
                         <DropdownMenuGroup>
                             <DropdownMenuItem>
                                 <User />
-                                <span>Perfil</span>
+                                <Link href={'/profile'} >Perfil</Link>
                             </DropdownMenuItem>
                             
                             <DropdownMenuItem>
