@@ -30,7 +30,7 @@ export function HeaderMenu(){
         <header className={`py-4 px-2 2xl:px-0 flex container mx-auto ${status === "authenticated" ? "justify-between" : "justify-end" }`}>
             {status === "authenticated" && (
                 <Image 
-                    src={"/Litline.png"} alt={""} width={128} height={30}
+                    src={"/Litline.png"} alt={""} width={128} height={26}
                 />
             )}
 

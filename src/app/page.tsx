@@ -3,22 +3,12 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import prisma from "@/services/database";
 import Image from "next/image";
 
-const books = [
-  { title: "O Senhor dos Anéis", author: "J.R.R. Tolkien", image: "/placeholder.svg?height=200&width=150" },
-  { title: "Harry Potter", author: "J.K. Rowling", image: "/placeholder.svg?height=200&width=150" },
-  { title: "1984", author: "George Orwell", image: "/placeholder.svg?height=200&width=150" },
-  { title: "Dom Quixote", author: "Miguel de Cervantes", image: "/placeholder.svg?height=200&width=150" },
-  { title: "Cem Anos de Solidão", author: "Gabriel García Márquez", image: "/placeholder.svg?height=200&width=150" },
-  { title: "A Metamorfose", author: "Franz Kafka", image: "/placeholder.svg?height=200&width=150" },
-]
-
-
 export default async function Home() {
 
   const books = await prisma.books.findMany()
 
   return (
-    <div className="bg-background">
+    <div>
       <div className="w-full h-72 bg-[url('../../public/image.png')] bg-cover bg-center relative 2xl:hidden bg-fixed">
         <div className="text-slate-100 font-semibold italic absolute bottom-5 left-9">
           <h1 className="text-7xl">LitLine</h1>
@@ -32,7 +22,6 @@ export default async function Home() {
           <h3 className="text-xl">Reserva de livros</h3>
         </div>
       </div>
-
 
       <main className="container mx-auto py-4 px-2 2xl:px-0">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

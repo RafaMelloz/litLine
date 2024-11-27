@@ -6,6 +6,7 @@ import { auth } from "@/services/auth"
 import { redirect } from "next/navigation"
 import prisma from "@/services/database"
 import Link from "next/link"
+import { SubNavigation } from "@/components/subNavigation"
 
 // Simulando dados do usuário com descrições e imagens para os livros
 
@@ -17,7 +18,8 @@ export default async function Profile() {
 
         
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto px-2 2xl:px-0">
+            <SubNavigation local="Perfil" />
             <Card className="w-full max-w-3xl mx-auto">
                 <CardHeader>
                     <div className="flex items-center space-x-4">
@@ -46,7 +48,9 @@ export default async function Profile() {
                                             <p className="text-sm truncate max-w-52">{book.description}</p>
                                         </CardContent>
                                         <CardFooter>
-                                            <Button>Ver mais</Button>
+                                            <Button>
+                                                <Link href={`/profile/${book.id}`}>Ver detalhes</Link>
+                                            </Button>
                                         </CardFooter>
                                     </div>
                                     <div className="w-1/3 relative">

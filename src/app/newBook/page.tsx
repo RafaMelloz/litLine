@@ -76,7 +76,7 @@ export default function NewBook() {
     }
 
     return (
-        <div className="container mx-auto px-2">
+        <div className="container mx-auto px-2 2xl:px-0">
             <SubNavigation local="Novo livro"/>
 
             <h1 className="text-2xl font-bold mb-6 mt-6">Cadastrar Novo Livro</h1>
