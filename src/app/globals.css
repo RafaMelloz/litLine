@@ -72,3 +72,16 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+
+.colorsAlerts{
+    @apply dark:bg-zinc-600 text-slate-900 dark:text-white font-semibold;
+}
+
+.colorsAlerts .confirmButton{
+    @apply bg-green-500;
+}
+
+.colorsAlerts .deleteButton{
+    @apply bg-red-500;
+}

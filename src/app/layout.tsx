@@ -2,6 +2,7 @@ import { HeaderMenu } from "@/components/headerMenu";
 import "./globals.css";
 import { AuthProvider } from "@/services/authProvider";
 import { Metadata } from "next";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "LitLine",
@@ -17,6 +18,9 @@ export default function RootLayout({
   return (
     <html lang="br">
       <body className="dark">
+        <Toaster toastOptions={{
+          className: 'colorsAlerts'  
+        }}/>
         <AuthProvider>
           <HeaderMenu />
           {children}

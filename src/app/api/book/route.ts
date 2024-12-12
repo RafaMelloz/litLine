@@ -59,3 +59,30 @@ export async function POST(req: Request){
         return NextResponse.json({ message: 'erro ao cadastrar' })
     }
 }
+
+export async function DELETE(req: Request){
+    const session = await auth()
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get('id');
+
+    if (!session) {
+        return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
+    }
+
+    if (!id) {
+        return NextResponse.json({ message: 'Id is required' }, { status: 400 });
+    }
+
+    try {
+        await prisma.books.delete({
+            where: {
+                id
+            }
+        })
+
+        return NextResponse.json({ message: 'ok' }, { status: 200 })
+
+    } catch (error) {
+        return NextResponse.json({ message: 'erro ao deletar' })
+    }
+}

@@ -19,7 +19,7 @@ export default async function Profile() {
         
     return (
         <div className="container mx-auto px-2 2xl:px-0">
-            <SubNavigation local="Perfil" />
+            <SubNavigation/>
             <Card className="w-full max-w-3xl mx-auto">
                 <CardHeader>
                     <div className="flex items-center space-x-4">

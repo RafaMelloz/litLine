@@ -8,6 +8,7 @@ import { redirect } from "next/navigation"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { SubNavigation } from "@/components/subNavigation"
+import { ButtonDelete } from "@/components/buttonDelete"
 
 interface Params {
     params: {
@@ -33,7 +34,7 @@ export default async function MyBook({ params }: Params) {
 
     return (
         <div className="container mx-auto px-2 2xl:px-0">
-            <SubNavigation local="Detalhes do Livro" />
+            <SubNavigation/>
             <Card className="w-full max-w-3xl mx-auto">
                 <CardHeader>
                     <div className="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -64,7 +65,7 @@ export default async function MyBook({ params }: Params) {
                 </CardContent>
                 <CardFooter className="flex flex-col sm:flex-row gap-4">
                     <Button className="w-full sm:w-auto">Editar</Button>
-                    <Button className="w-full sm:w-auto">Apagar</Button>
+                    <ButtonDelete id={book.id}/>
                 </CardFooter>
             </Card>
             <div className="mt-4 text-center">

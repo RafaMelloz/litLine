@@ -10,6 +10,7 @@ import {
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { usePathname } from "next/navigation";
+import React from "react";
 
 export function SubNavigation() {
     const pathname = usePathname(); // Obtém o caminho da URL atual
@@ -47,16 +48,18 @@ export function SubNavigation() {
                     const href = `/${paths.slice(0, index + 1).join("/")}`; // Monta o link incremental
 
                     return (
-                        <BreadcrumbItem key={href}>
+                        <React.Fragment key={href}> {/* Use React.Fragment com uma key única */}
                             <BreadcrumbSeparator />
-                            {isLast ? (
-                                <BreadcrumbPage>{getFriendlyLabel(path)}</BreadcrumbPage>
-                            ) : (
-                                <BreadcrumbLink asChild>
-                                    <Link href={href}>{getFriendlyLabel(path)}</Link>
-                                </BreadcrumbLink>
-                            )}
-                        </BreadcrumbItem>
+                            <BreadcrumbItem>
+                                {isLast ? (
+                                    <BreadcrumbPage>{getFriendlyLabel(path)}</BreadcrumbPage>
+                                ) : (
+                                    <BreadcrumbLink asChild>
+                                        <Link href={href}>{getFriendlyLabel(path)}</Link>
+                                    </BreadcrumbLink>
+                                )}
+                            </BreadcrumbItem>
+                        </React.Fragment>
                     );
                 })}
             </BreadcrumbList>
