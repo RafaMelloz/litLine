@@ -1,4 +1,3 @@
-
 import Image from "next/image"
 import Link from "next/link"
 import prisma from "@/services/database"
@@ -10,31 +9,24 @@ import { Button } from "@/components/ui/button"
 import { SubNavigation } from "@/components/subNavigation"
 import { ButtonDelete } from "@/components/buttonDelete"
 
-interface Params {
-    params: {
-        id: string
-    }
-}
-
-export default async function MyBook({ params }: Params) {
-    
-    const {id} = await params
-    const session = await auth()
+export default async function MyBook({ params }: { params: { id: string } }) {
+    const { id } = params;
+    const session = await auth();
     if (!session) {
-        return redirect('/')
+        return redirect('/');
     }
 
-    const user = session?.user?.id
+    const user = session?.user?.id;
     const book = await prisma.books.findFirst({
-        where: { id, ownerId: user  }
-    })
+        where: { id, ownerId: user }
+    });
     if (!book) {
-        return redirect('/profile')
+        return redirect('/profile');
     }
 
     return (
         <div className="container mx-auto px-2 2xl:px-0">
-            <SubNavigation/>
+            <SubNavigation />
             <Card className="w-full max-w-3xl mx-auto">
                 <CardHeader>
                     <div className="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -65,7 +57,7 @@ export default async function MyBook({ params }: Params) {
                 </CardContent>
                 <CardFooter className="flex flex-col sm:flex-row gap-4">
                     <Button className="w-full sm:w-auto">Editar</Button>
-                    <ButtonDelete id={book.id}/>
+                    <ButtonDelete id={book.id} />
                 </CardFooter>
             </Card>
             <div className="mt-4 text-center">
@@ -74,5 +66,5 @@ export default async function MyBook({ params }: Params) {
                 </Link>
             </div>
         </div>
-    )
+    );
 }
