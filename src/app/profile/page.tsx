@@ -48,9 +48,11 @@ export default async function Profile() {
                                             <p className="text-sm truncate max-w-52">{book.description}</p>
                                         </CardContent>
                                         <CardFooter>
-                                            <Button>
-                                                <Link href={`/profile/${book.id}`}>Ver detalhes</Link>
-                                            </Button>
+                                            <Link href={`/profile/${book.id}`}>
+                                                <Button>
+                                                    Ver detalhes
+                                                </Button>
+                                            </Link>
                                         </CardFooter>
                                     </div>
                                     <div className="w-1/3 relative">
