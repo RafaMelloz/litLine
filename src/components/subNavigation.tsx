@@ -49,7 +49,7 @@ export function SubNavigation() {
 
                     return (
                         <React.Fragment key={href}> {/* Use React.Fragment com uma key única */}
-                            <BreadcrumbSeparator />
+                            <BreadcrumbSeparator /> 
                             <BreadcrumbItem>
                                 {isLast ? (
                                     <BreadcrumbPage>{getFriendlyLabel(path)}</BreadcrumbPage>
