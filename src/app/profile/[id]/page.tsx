@@ -1,32 +1,32 @@
-import Image from "next/image"
-import Link from "next/link"
-import prisma from "@/services/database"
+import Image from "next/image";
+import Link from "next/link";
+import prisma from "@/services/database";
 
-import { auth } from "@/services/auth"
-import { redirect } from "next/navigation"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { SubNavigation } from "@/components/subNavigation"
-import { ButtonDelete } from "@/components/buttonDelete"
+import { auth } from "@/services/auth";
+import { redirect } from "next/navigation";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { SubNavigation } from "@/components/subNavigation";
+import { ButtonDelete } from "@/components/buttonDelete";
 
-interface Params {
+interface PageProps {
     params: {
-        id: string
-    }
+        id: string;
+    };
 }
 
-export default async function MyBook({ params }: Params) {
+export default async function MyBook({ params }: PageProps) {
     const session = await auth();
     if (!session) {
-        return redirect('/');
+        return redirect("/");
     }
 
     const user = session?.user?.id;
     const book = await prisma.books.findFirst({
-        where: { id: params.id, ownerId: user }
+        where: { id: params.id, ownerId: user },
     });
     if (!book) {
-        return redirect('/profile');
+        return redirect("/profile");
     }
 
     return (
@@ -47,12 +47,11 @@ export default async function MyBook({ params }: Params) {
                     />
                 </CardHeader>
 
-                
                 <CardContent>
                     <p className="mb-4">{book.description}</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                         <div>
-                            <strong>Data de publicação:</strong> {new Date(book.createdAt).toLocaleDateString('pt-BR')}
+                            <strong>Data de publicação:</strong> {new Date(book.createdAt).toLocaleDateString("pt-BR")}
                         </div>
 
                         <div>
@@ -60,7 +59,7 @@ export default async function MyBook({ params }: Params) {
                         </div>
                     </div>
                 </CardContent>
-                
+
                 <CardFooter className="flex flex-col sm:flex-row gap-4">
                     <Button className="w-full sm:w-auto">Editar</Button>
                     <ButtonDelete id={book.id} />
