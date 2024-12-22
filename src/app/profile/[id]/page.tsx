@@ -9,13 +9,11 @@ import { Button } from "@/components/ui/button";
 import { SubNavigation } from "@/components/subNavigation";
 import { ButtonDelete } from "@/components/buttonDelete";
 
-interface PageProps {
-    params: {
-        id: string;
-    };
+interface Params {
+    id: string;
 }
 
-export default async function MyBook({ params }: PageProps) {
+export default async function MyBook({ params }: { params: Params }) {
     const session = await auth();
     if (!session) {
         return redirect("/");
