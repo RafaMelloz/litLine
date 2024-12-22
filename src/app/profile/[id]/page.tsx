@@ -16,8 +16,6 @@ interface Params {
 }
 
 export default async function MyBook({ params }: Params) {
-    const slugId = params.id
-
     const session = await auth();
     if (!session) {
         return redirect('/');
@@ -25,7 +23,7 @@ export default async function MyBook({ params }: Params) {
 
     const user = session?.user?.id;
     const book = await prisma.books.findFirst({
-        where: { id: slugId, ownerId: user }
+        where: { id: params.id, ownerId: user }
     });
     if (!book) {
         return redirect('/profile');
@@ -35,21 +33,21 @@ export default async function MyBook({ params }: Params) {
         <div className="container mx-auto px-2 2xl:px-0">
             <SubNavigation />
             <Card className="w-full max-w-3xl mx-auto">
-                <CardHeader>
-                    <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                        <div>
-                            <CardTitle className="text-2xl">{book.title}</CardTitle>
-                            <CardDescription>{book.author}</CardDescription>
-                        </div>
-                        <Image
-                            src={book.image}
-                            alt={`Capa do livro ${book.title}`}
-                            width={150}
-                            height={200}
-                            className="rounded-md shadow-md"
-                        />
+                <CardHeader className="relative">
+                    <div>
+                        <CardTitle className="text-2xl">{book.title}</CardTitle>
+                        <CardDescription>{book.author}</CardDescription>
                     </div>
+                    <Image
+                        src={book.image}
+                        alt={`Capa do livro ${book.title}`}
+                        width={125}
+                        height={100}
+                        className="rounded-md shadow-md absolute top-0 right-0"
+                    />
                 </CardHeader>
+
+                
                 <CardContent>
                     <p className="mb-4">{book.description}</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
@@ -62,6 +60,7 @@ export default async function MyBook({ params }: Params) {
                         </div>
                     </div>
                 </CardContent>
+                
                 <CardFooter className="flex flex-col sm:flex-row gap-4">
                     <Button className="w-full sm:w-auto">Editar</Button>
                     <ButtonDelete id={book.id} />
