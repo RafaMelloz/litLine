@@ -9,12 +9,15 @@ import { Button } from "@/components/ui/button"
 import { SubNavigation } from "@/components/subNavigation"
 import { ButtonDelete } from "@/components/buttonDelete"
 
-type PageProps = {
-    params: { id: string };
-};
+interface Params {
+    params: {
+        id: string
+    }
+}
 
-export default async function MyBook({ params }: PageProps) {
-    const { id } = await params;
+export default async function MyBook({ params }: Params) {
+    const slugId = params.id
+
     const session = await auth();
     if (!session) {
         return redirect('/');
@@ -22,7 +25,7 @@ export default async function MyBook({ params }: PageProps) {
 
     const user = session?.user?.id;
     const book = await prisma.books.findFirst({
-        where: { id, ownerId: user }
+        where: { id: slugId, ownerId: user }
     });
     if (!book) {
         return redirect('/profile');
