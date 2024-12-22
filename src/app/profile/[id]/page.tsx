@@ -14,7 +14,7 @@ type PageProps = {
 };
 
 export default async function MyBook({ params }: PageProps) {
-    const { id } = params;
+    const { id } = await params;
     const session = await auth();
     if (!session) {
         return redirect('/');
