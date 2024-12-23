@@ -10,19 +10,21 @@ import { api } from '@/services/axios'
 import { SubNavigation } from '@/components/subNavigation'
 import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
+import useStore from '@/store/book'
 
 export default function NewBook() {
     const { status } = useSession()
+    const { selectedBook, editingBook } = useStore();
 
     if (status !== "authenticated") {
         return redirect('/')  
     }
 
     const [book, setBook] = useState({
-        title: '',
-        author: '',
-        description: '',
-        imageUrl: ''
+        title: selectedBook?.title || '',
+        author: selectedBook?.author || '',
+        description: selectedBook?.description || '',
+        imageUrl: selectedBook?.imageUrl || ''
     })
 
     function handleFileName(e: any){
@@ -41,12 +43,8 @@ export default function NewBook() {
     }
 
     function clearForm(){
-        setBook({
-            title: '',
-            author: '',
-            description: '',
-            imageUrl: ''
-        })
+        setBook({title: '',author: '',description: '',imageUrl: ''})
+        editingBook(undefined);
     }
 
     async function handleSubmit (e: React.FormEvent){
@@ -79,7 +77,8 @@ export default function NewBook() {
         <div className="container mx-auto px-2 2xl:px-0">
             <SubNavigation/>
 
-            <h1 className="text-2xl font-bold mb-6 mt-6">Cadastrar Novo Livro</h1>
+            {selectedBook ? <h1 className="text-2xl font-bold mb-6 mt-6">Editar Livro</h1> :  <h1 className="text-2xl font-bold mb-6 mt-6">Cadastrar Novo Livro</h1>}
+
             <div className="grid md:grid-cols-2 gap-6">
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
@@ -122,7 +121,18 @@ export default function NewBook() {
                             onChange={handleFileName}
                         />
                     </div>
-                    <Button type="submit">Cadastrar Livro</Button>
+
+                    <div className='flex gap-2'>
+                        <Button type="submit">
+                            {selectedBook ? 'Editar' : 'Cadastrar'}
+                        </Button>
+
+                        {selectedBook && (
+                            <Button type="button" onClick={clearForm}>
+                                Cancelar edição
+                            </Button>
+                        )}
+                    </div>
                 </form>
 
 
@@ -150,5 +160,5 @@ export default function NewBook() {
             </div>
         </div>
     )
-}
+}   
 

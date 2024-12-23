@@ -56,6 +56,7 @@ export async function POST(req: Request){
         return NextResponse.json({ message: 'ok' }, { status: 201 })
 
     } catch (error) {
+        console.log(error)
         return NextResponse.json({ message: 'erro ao cadastrar' })
     }
 }
@@ -83,6 +84,7 @@ export async function DELETE(req: Request){
         return NextResponse.json({ message: 'ok' }, { status: 200 })
 
     } catch (error) {
+        console.log(error)
         return NextResponse.json({ message: 'erro ao deletar' })
     }
 }

@@ -75,7 +75,7 @@ body {
 
 
 .colorsAlerts{
-    @apply dark:bg-zinc-600 text-slate-900 dark:text-white font-semibold;
+    @apply dark:bg-zinc-800 text-slate-900 dark:text-white font-semibold;
 }
 
 .colorsAlerts .confirmButton{

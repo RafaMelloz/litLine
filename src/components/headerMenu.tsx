@@ -44,21 +44,21 @@ export function HeaderMenu(){
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
                             <DropdownMenuItem>
-                                <Link href={'/profile'} ><User /></Link>
-                                <Link href={'/profile'} >Perfil</Link>
+                                <Link href={'/profile'}><User size={16} /></Link>
+                                <Link href={'/profile'}>Perfil</Link>
                             </DropdownMenuItem>
                             
                             <DropdownMenuItem>
-                                <Link href={'/newBook'} ><Plus /></Link>
-                                <Link href={'/newBook'} >Novo Livro</Link>
+                                <Link href={'/newBook'}><Plus size={16}/></Link>
+                                <Link href={'/newBook'}>Novo Livro</Link>
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                 
                         <DropdownMenuSeparator />
 
                         <DropdownMenuItem>
-                            <Link href={'/'} ><Home /></Link>
-                            <Link href={'/'} >Home</Link>
+                            <Link href={'/'}><Home size={16}/></Link>
+                            <Link href={'/'}>Home</Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={handleLogout}>
                             <LogOut />

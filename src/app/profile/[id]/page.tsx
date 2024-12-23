@@ -7,7 +7,7 @@ import { redirect } from "next/navigation"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { SubNavigation } from "@/components/subNavigation"
-import { ButtonDelete } from "@/components/buttonDelete"
+import { ButtonFunction } from "@/components/buttonFunction"
 
 type paramsType = Promise<{ id: string }>;
 
@@ -30,7 +30,7 @@ export default async function MyBook({ params }: { params: paramsType }) {
     return (
         <div className="container mx-auto px-2 2xl:px-0">
             <SubNavigation />
-            <Card className="w-full max-w-3xl mx-auto">
+            <Card className="w-full max-w-3xl mx-auto mt-2">
                 <CardHeader className="relative">
                     <div>
                         <CardTitle className="text-2xl">{book.title}</CardTitle>
@@ -45,25 +45,31 @@ export default async function MyBook({ params }: { params: paramsType }) {
                     />
                 </CardHeader>
 
-                
                 <CardContent>
-                    <p className="mb-4">{book.description}</p>
+                    <p className="mb-4 max-w-96 w-full">{book.description}</p>
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                         <div>
                             <strong>Data de publicação:</strong> {new Date(book.createdAt).toLocaleDateString('pt-BR')}
                         </div>
-
+{/* 
                         <div>
                             <strong>Gênero:</strong> Ação
-                        </div>
+                        </div> */}
                     </div>
                 </CardContent>
                 
                 <CardFooter className="flex flex-col sm:flex-row gap-4">
-                    <Button className="w-full sm:w-auto">Editar</Button>
-                    <ButtonDelete id={book.id} />
+                    <ButtonFunction book={book}>
+                        Editar
+                    </ButtonFunction>
+
+                    <ButtonFunction id={book.id}>
+                        Apagar
+                    </ButtonFunction>
                 </CardFooter>
             </Card>
+
             <div className="mt-4 text-center">
                 <Link href="/profile" passHref>
                     <Button variant="outline">Voltar para o Perfil</Button>
