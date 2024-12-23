@@ -27,12 +27,10 @@ export function HeaderMenu(){
     }
 
     return (
-        <header className={`py-4 px-2 2xl:px-0 flex container mx-auto ${status === "authenticated" ? "justify-between" : "justify-end" }`}>
-            {status === "authenticated" && (
-                <Image 
-                    src={"/litline.png"} alt={"Logo"} width={128} height={26}
-                />
-            )}
+        <header className={`py-4 px-2 2xl:px-0 flex container mx-auto ${status === "authenticated" ? "justify-between" : "justify-between" }`}>
+            <Image 
+                src={"/litline.png"} alt={"Logo"} width={128} height={26}
+            />
 
             {status === "authenticated" && (
                 <DropdownMenu>
